@@ -1,3 +1,12 @@
+/*
+ * Nome do Programa: Meu Programa em C
+ * Autor:
+ *     - Vinícius Ilton Est�cio
+ * Data de Criaçãoo: 10 de junho de 2024
+ * Última Modificaçãoo: 16 de janeiro de 2025
+ */
+
+
 #define LATCH_PIN 4
 #define CLK_PIN 7
 #define DATA_PIN 8
@@ -8,13 +17,13 @@ const char SEGMENT_MAP_DIGIT[] = {0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0X80,0
 	
 	
 
-/* Byte maps to select segment 1 to 4 */
+/* Byte maps para selecionar o seguimento 1 a 4 */
 const char SEGMENT_SELECT[] = {0xF1,0xF2,0xF4,0xF8,0xff,0xf0};
 	
 
 
 
-/* Write a value to one of the 4 digits of the display */
+/* Escreve um valor para um dos displays de sete seguimento */
 unsigned short int contador_display = 0;
 
 void setup() {
@@ -26,14 +35,13 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
   int valor = 1999;
   
   SevenSeg_WriteValueToSegment(&valor);
   
 }
 
-void SevenSeg_WriteValueToSegment(unsigned int *value){
+void SevenSeg_WriteValueToSegment(unsigned int *value){ 
   
 	int seguimentos_individuais[4];  //converte um valor numérico para quatro digitos individuais
 	seguimentos_individuais[0] = *value / 1000;
@@ -49,7 +57,7 @@ void SevenSeg_WriteValueToSegment(unsigned int *value){
 	aux_segment_select = SEGMENT_SELECT[contador_display];  //seleciona o seguimento que será habilitado momentâneamente
 
 	
-
+	
    digitalWrite(LATCH_PIN,1);
 	for (uint8_t i = 0; i < 8; i++)  {
     digitalWrite(DATA_PIN,(auxi_seguimento & (1 << (7 - i))));
